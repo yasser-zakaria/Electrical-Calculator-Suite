@@ -21,14 +21,16 @@
     .input-field:focus { outline: 2px solid #22c55e; background-color: #fff; }
     .tab-active { background: linear-gradient(135deg, rgba(34,197,94,0.2), rgba(59,130,246,0.2)); border-color: rgba(255,255,255,0.35); }
     .link-chip { background: rgba(255,255,255,0.08); }
-    /* Align inputs nicely inside grid */
     .grid.sm\:grid-cols-2 > div { display:flex; flex-direction:column; justify-content:flex-end; }
     .grid.sm\:grid-cols-2 > div label { margin-bottom:6px; }
-    /* Responsive ad styling */
     .ad-banner iframe { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+    /* Sticky mobile banner */
+    #mobile-sticky { backdrop-filter: blur(6px); }
+    #mobile-sticky .card { background: rgba(20,20,28,0.85); border: 1px solid rgba(255,255,255,0.15); }
+    .close-btn { background: rgba(255,255,255,0.1); }
   </style>
 </head>
-<body class="min-h-screen bg-gradient-to-br from-indigo-900 via-slate-900 to-slate-950 text-white">
+<body class="min-h-screen bg-gradient-to-br from-indigo-900 via-slate-900 to-slate-950 text-white pb-24 md:pb-0">
   <header class="max-w-6xl mx-auto px-4 pt-10 pb-6 text-center">
     <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full link-chip border border-white/20">
       <i class="fas fa-bolt text-yellow-400"></i>
@@ -82,36 +84,14 @@
         <div class="glass-effect rounded-2xl p-6 space-y-4">
           <h3 class="text-xl font-bold mb-2"><i class="fas fa-sliders text-green-400"></i> Inputs</h3>
           <div class="grid sm:grid-cols-2 gap-4">
-            <div>
-              <label class="block text-white font-semibold mb-2">Active Power P (kW)</label>
-              <input type="number" id="pf_P" class="input-field w-full p-3 rounded-lg bg-white/90 border-0" value="500" min="1" step="0.1" />
-            </div>
-            <div>
-              <label class="block text-white font-semibold mb-2">Present PF</label>
-              <input type="number" id="pf_pf1" class="input-field w-full p-3 rounded-lg bg-white/90 border-0" value="0.80" min="0.1" max="1" step="0.01" />
-            </div>
-            <div>
-              <label class="block text-white font-semibold mb-2">Target PF</label>
-              <input type="number" id="pf_pf2" class="input-field w-full p-3 rounded-lg bg-white/90 border-0" value="0.95" min="0.5" max="1" step="0.01" />
-            </div>
-            <div>
-              <label class="block text-white font-semibold mb-2">Voltage (kV) <span class="text-white/60 text-xs">(for cost est.)</span></label>
-              <input type="number" id="pf_voltage" class="input-field w-full p-3 rounded-lg bg-white/90 border-0" value="0.4" min="0.22" max="33" step="0.01" />
-            </div>
-            <div>
-              <label class="block text-white font-semibold mb-2">Demand Charge (USD/kVA·month)</label>
-              <input type="number" id="pf_demand" class="input-field w-full p-3 rounded-lg bg-white/90 border-0" value="3" min="0" step="0.1" />
-            </div>
-            <div>
-              <label class="block text-white font-semibold mb-2">Energy Cost (USD/kWh) <span class="text-white/60 text-xs">optional</span></label>
-              <input type="number" id="pf_energy" class="input-field w-full p-3 rounded-lg bg-white/90 border-0" value="0.03" min="0" step="0.001" />
-            </div>
-            <div>
-              <label class="block text-white font-semibold mb-2">Operating Hours / year</label>
-              <input type="number" id="pf_hours" class="input-field w-full p-3 rounded-lg bg-white/90 border-0" value="8760" min="1" max="8760" step="1" />
-            </div>
-            <div>
-              <label class="block text-white font-semibold mb-2">Derating / Margin</label>
+            <div><label class="block text-white font-semibold mb-2">Active Power P (kW)</label><input type="number" id="pf_P" class="input-field w-full p-3 rounded-lg bg-white/90 border-0" value="500" min="1" step="0.1" /></div>
+            <div><label class="block text-white font-semibold mb-2">Present PF</label><input type="number" id="pf_pf1" class="input-field w-full p-3 rounded-lg bg-white/90 border-0" value="0.80" min="0.1" max="1" step="0.01" /></div>
+            <div><label class="block text-white font-semibold mb-2">Target PF</label><input type="number" id="pf_pf2" class="input-field w-full p-3 rounded-lg bg-white/90 border-0" value="0.95" min="0.5" max="1" step="0.01" /></div>
+            <div><label class="block text-white font-semibold mb-2">Voltage (kV) <span class="text-white/60 text-xs">(for cost est.)</span></label><input type="number" id="pf_voltage" class="input-field w-full p-3 rounded-lg bg-white/90 border-0" value="0.4" min="0.22" max="33" step="0.01" /></div>
+            <div><label class="block text-white font-semibold mb-2">Demand Charge (USD/kVA·month)</label><input type="number" id="pf_demand" class="input-field w-full p-3 rounded-lg bg-white/90 border-0" value="3" min="0" step="0.1" /></div>
+            <div><label class="block text-white font-semibold mb-2">Energy Cost (USD/kWh) <span class="text-white/60 text-xs">optional</span></label><input type="number" id="pf_energy" class="input-field w-full p-3 rounded-lg bg-white/90 border-0" value="0.03" min="0" step="0.001" /></div>
+            <div><label class="block text-white font-semibold mb-2">Operating Hours / year</label><input type="number" id="pf_hours" class="input-field w-full p-3 rounded-lg bg-white/90 border-0" value="8760" min="1" max="8760" step="1" /></div>
+            <div><label class="block text-white font-semibold mb-2">Derating / Margin</label>
               <select id="pf_derate" class="input-field w-full p-3 rounded-lg bg-white/90 border-0">
                 <option value="1.00">1.00 – Normal</option>
                 <option value="1.10" selected>1.10 – Hot</option>
@@ -139,6 +119,21 @@
               <canvas id="pfChart2" height="180"></canvas>
             </div>
           </div>
+
+          <!-- Ad after results, before PDF -->
+          <div class="ad-banner my-6 text-center">
+            <script type="text/javascript">
+              atOptions = {
+                'key' : '52612cca3815c1ad36409099cc68adce',
+                'format' : 'iframe',
+                'height' : 250,
+                'width' : 300,
+                'params' : {}
+              };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/52612cca3815c1ad36409099cc68adce/invoke.js"></script>
+          </div>
+
           <div class="mt-4 flex flex-wrap gap-3">
             <button class="py-2 px-4 rounded-lg bg-indigo-600 hover:bg-indigo-700" onclick="pfReport()">
               <i class="fa-solid fa-file-pdf mr-2"></i>PDF Report
@@ -158,48 +153,15 @@
         <div class="glass-effect rounded-2xl p-6 space-y-4">
           <h3 class="text-xl font-bold mb-2"><i class="fas fa-sliders text-green-400"></i> Inputs</h3>
           <div class="grid sm:grid-cols-2 gap-4">
-            <div>
-              <label class="block text-white font-semibold mb-2">System</label>
-              <select id="vd_phase" class="input-field w-full p-3 rounded-lg bg-white/90 border-0">
-                <option value="3" selected>3-Phase</option>
-                <option value="1">1-Phase</option>
-              </select>
-            </div>
-            <div>
-              <label class="block text-white font-semibold mb-2">Voltage (V)</label>
-              <input type="number" id="vd_V" class="input-field w-full p-3 rounded-lg bg-white/90 border-0" value="400" />
-            </div>
-            <div>
-              <label class="block text-white font-semibold mb-2">Load Power (kW) <span class="text-xs text-white/70">or set Current</span></label>
-              <input type="number" id="vd_P" class="input-field w-full p-3 rounded-lg bg-white/90 border-0" value="75" step="0.1" />
-            </div>
-            <div>
-              <label class="block text-white font-semibold mb-2">Current I (A) <span class="text-xs text-white/70">optional</span></label>
-              <input type="number" id="vd_I" class="input-field w-full p-3 rounded-lg bg-white/90 border-0" placeholder="auto from kW & PF" />
-            </div>
-            <div>
-              <label class="block text-white font-semibold mb-2">Power Factor</label>
-              <input type="number" id="vd_pf" class="input-field w-full p-3 rounded-lg bg-white/90 border-0" value="0.85" min="0.1" max="1" step="0.01" />
-            </div>
-            <div>
-              <label class="block text-white font-semibold mb-2">Length one-way (m)</label>
-              <input type="number" id="vd_L" class="input-field w-full p-3 rounded-lg bg-white/90 border-0" value="120" />
-            </div>
-            <div>
-              <label class="block text-white font-semibold mb-2">Conductor Area (mm²)</label>
-              <input type="number" id="vd_A" class="input-field w-full p-3 rounded-lg bg-white/90 border-0" value="35" />
-            </div>
-            <div>
-              <label class="block text-white font-semibold mb-2">Material</label>
-              <select id="vd_mat" class="input-field w-full p-3 rounded-lg bg-white/90 border-0">
-                <option value="cu" selected>Copper</option>
-                <option value="al">Aluminium</option>
-              </select>
-            </div>
-            <div>
-              <label class="block text-white font-semibold mb-2">Reactance X (Ω/km)</label>
-              <input type="number" id="vd_X" class="input-field w-full p-3 rounded-lg bg-white/90 border-0" value="0.08" step="0.01" />
-            </div>
+            <div><label class="block text-white font-semibold mb-2">System</label><select id="vd_phase" class="input-field w-full p-3 rounded-lg bg-white/90 border-0"><option value="3" selected>3-Phase</option><option value="1">1-Phase</option></select></div>
+            <div><label class="block text-white font-semibold mb-2">Voltage (V)</label><input type="number" id="vd_V" class="input-field w-full p-3 rounded-lg bg-white/90 border-0" value="400" /></div>
+            <div><label class="block text-white font-semibold mb-2">Load Power (kW) <span class="text-xs text-white/70">or set Current</span></label><input type="number" id="vd_P" class="input-field w-full p-3 rounded-lg bg-white/90 border-0" value="75" step="0.1" /></div>
+            <div><label class="block text-white font-semibold mb-2">Current I (A) <span class="text-xs text-white/70">optional</span></label><input type="number" id="vd_I" class="input-field w-full p-3 rounded-lg bg-white/90 border-0" placeholder="auto from kW & PF" /></div>
+            <div><label class="block text-white font-semibold mb-2">Power Factor</label><input type="number" id="vd_pf" class="input-field w-full p-3 rounded-lg bg-white/90 border-0" value="0.85" min="0.1" max="1" step="0.01" /></div>
+            <div><label class="block text-white font-semibold mb-2">Length one-way (m)</label><input type="number" id="vd_L" class="input-field w-full p-3 rounded-lg bg-white/90 border-0" value="120" /></div>
+            <div><label class="block text-white font-semibold mb-2">Conductor Area (mm²)</label><input type="number" id="vd_A" class="input-field w-full p-3 rounded-lg bg-white/90 border-0" value="35" /></div>
+            <div><label class="block text-white font-semibold mb-2">Material</label><select id="vd_mat" class="input-field w-full p-3 rounded-lg bg-white/90 border-0"><option value="cu" selected>Copper</option><option value="al">Aluminium</option></select></div>
+            <div><label class="block text-white font-semibold mb-2">Reactance X (Ω/km)</label><input type="number" id="vd_X" class="input-field w-full p-3 rounded-lg bg-white/90 border-0" value="0.08" step="0.01" /></div>
           </div>
           <button class="calc-button w-full py-4 px-6 rounded-xl text-white font-bold text-lg mt-2" onclick="calcVD()"><i class="fas fa-calculator mr-2"></i>Calculate</button>
           <button class="w-full py-3 px-6 rounded-xl text-white font-semibold bg-gray-600 hover:bg-gray-700 mt-2" onclick="resetVD()"><i class="fas fa-redo mr-2"></i>Reset</button>
@@ -210,6 +172,21 @@
             <div class="text-white/60 italic">No results yet — enter inputs then click <strong>Calculate</strong>.</div>
           </div>
           <div id="vd_chart_wrap" class="hidden"><canvas id="vdChart" height="160" class="mt-1"></canvas></div>
+
+          <!-- Ad after results, before PDF -->
+          <div class="ad-banner my-6 text-center">
+            <script type="text/javascript">
+              atOptions = {
+                'key' : '52612cca3815c1ad36409099cc68adce',
+                'format' : 'iframe',
+                'height' : 250,
+                'width' : 300,
+                'params' : {}
+              };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/52612cca3815c1ad36409099cc68adce/invoke.js"></script>
+          </div>
+
           <div class="mt-4 flex flex-wrap gap-3">
             <button class="py-2 px-4 rounded-lg bg-indigo-600 hover:bg-indigo-700" onclick="vdReport()"><i class='fa-solid fa-file-pdf mr-2'></i>PDF Report</button>
           </div>
@@ -227,47 +204,14 @@
         <div class="glass-effect rounded-2xl p-6 space-y-4">
           <h3 class="text-xl font-bold mb-2"><i class="fas fa-sliders text-green-400"></i> Inputs</h3>
           <div class="grid sm:grid-cols-2 gap-4">
-            <div>
-              <label class="block text-white font-semibold mb-2">System</label>
-              <select id="cs_phase" class="input-field w-full p-3 rounded-lg bg-white/90 border-0">
-                <option value="3" selected>3-Phase</option>
-                <option value="1">1-Phase</option>
-              </select>
-            </div>
-            <div>
-              <label class="block text-white font-semibold mb-2">Voltage (V)</label>
-              <input type="number" id="cs_V" class="input-field w-full p-3 rounded-lg bg-white/90 border-0" value="400" />
-            </div>
-            <div>
-              <label class="block text-white font-semibold mb-2">Load Power (kW)</label>
-              <input type="number" id="cs_P" class="input-field w-full p-3 rounded-lg bg-white/90 border-0" value="75" step="0.1" />
-            </div>
-            <div>
-              <label class="block text-white font-semibold mb-2">Power Factor</label>
-              <input type="number" id="cs_pf" class="input-field w-full p-3 rounded-lg bg-white/90 border-0" value="0.85" min="0.1" max="1" step="0.01" />
-            </div>
-            <div>
-              <label class="block text-white font-semibold mb-2">Ambient Temp (°C)</label>
-              <input type="number" id="cs_Ta" class="input-field w-full p-3 rounded-lg bg-white/90 border-0" value="40" />
-            </div>
-            <div>
-              <label class="block text-white font-semibold mb-2">Grouping (no. of cables)</label>
-              <input type="number" id="cs_group" class="input-field w-full p-3 rounded-lg bg-white/90 border-0" value="3" />
-            </div>
-            <div>
-              <label class="block text-white font-semibold mb-2">Insulation</label>
-              <select id="cs_ins" class="input-field w-full p-3 rounded-lg bg-white/90 border-0">
-                <option value="PVC" selected>PVC</option>
-                <option value="XLPE">XLPE</option>
-              </select>
-            </div>
-            <div>
-              <label class="block text-white font-semibold mb-2">Material</label>
-              <select id="cs_mat" class="input-field w-full p-3 rounded-lg bg-white/90 border-0">
-                <option value="cu" selected>Copper</option>
-                <option value="al">Aluminium</option>
-              </select>
-            </div>
+            <div><label class="block text-white font-semibold mb-2">System</label><select id="cs_phase" class="input-field w-full p-3 rounded-lg bg-white/90 border-0"><option value="3" selected>3-Phase</option><option value="1">1-Phase</option></select></div>
+            <div><label class="block text-white font-semibold mb-2">Voltage (V)</label><input type="number" id="cs_V" class="input-field w-full p-3 rounded-lg bg-white/90 border-0" value="400" /></div>
+            <div><label class="block text-white font-semibold mb-2">Load Power (kW)</label><input type="number" id="cs_P" class="input-field w-full p-3 rounded-lg bg-white/90 border-0" value="75" step="0.1" /></div>
+            <div><label class="block text-white font-semibold mb-2">Power Factor</label><input type="number" id="cs_pf" class="input-field w-full p-3 rounded-lg bg-white/90 border-0" value="0.85" min="0.1" max="1" step="0.01" /></div>
+            <div><label class="block text-white font-semibold mb-2">Ambient Temp (°C)</label><input type="number" id="cs_Ta" class="input-field w-full p-3 rounded-lg bg-white/90 border-0" value="40" /></div>
+            <div><label class="block text-white font-semibold mb-2">Grouping (no. of cables)</label><input type="number" id="cs_group" class="input-field w-full p-3 rounded-lg bg-white/90 border-0" value="3" /></div>
+            <div><label class="block text-white font-semibold mb-2">Insulation</label><select id="cs_ins" class="input-field w-full p-3 rounded-lg bg-white/90 border-0"><option value="PVC" selected>PVC</option><option value="XLPE">XLPE</option></select></div>
+            <div><label class="block text-white font-semibold mb-2">Material</label><select id="cs_mat" class="input-field w-full p-3 rounded-lg bg-white/90 border-0"><option value="cu" selected>Copper</option><option value="al">Aluminium</option></select></div>
           </div>
           <button class="calc-button w-full py-4 px-6 rounded-xl text-white font-bold text-lg mt-2" onclick="calcCS()"><i class="fas fa-calculator mr-2"></i>Calculate</button>
           <button class="w-full py-3 px-6 rounded-xl text-white font-semibold bg-gray-600 hover:bg-gray-700 mt-2" onclick="resetCS()"><i class="fas fa-redo mr-2"></i>Reset</button>
@@ -278,6 +222,21 @@
             <div class="text-white/60 italic">No results yet — enter inputs then click <strong>Calculate</strong>.</div>
           </div>
           <div id="cs_chart_wrap" class="hidden"><canvas id="csChart" height="160" class="mt-1"></canvas></div>
+
+          <!-- Ad after results, before PDF -->
+          <div class="ad-banner my-6 text-center">
+            <script type="text/javascript">
+              atOptions = {
+                'key' : '52612cca3815c1ad36409099cc68adce',
+                'format' : 'iframe',
+                'height' : 250,
+                'width' : 300,
+                'params' : {}
+              };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/52612cca3815c1ad36409099cc68adce/invoke.js"></script>
+          </div>
+
           <div class="mt-4 flex flex-wrap gap-3">
             <button class="py-2 px-4 rounded-lg bg-indigo-600 hover:bg-indigo-700" onclick="csReport()"><i class='fa-solid fa-file-pdf mr-2'></i>PDF Report</button>
           </div>
@@ -295,34 +254,12 @@
         <div class="glass-effect rounded-2xl p-6 space-y-4">
           <h3 class="text-xl font-bold mb-2"><i class="fas fa-sliders text-green-400"></i> Inputs</h3>
           <div class="grid sm:grid-cols-2 gap-4">
-            <div>
-              <label class="block text-white font-semibold mb-2">Load Type</label>
-              <select id="brk_load" class="input-field w-full p-3 rounded-lg bg-white/90 border-0">
-                <option value="motor" selected>Motor</option>
-                <option value="resistive">Resistive</option>
-                <option value="mixed">Mixed</option>
-              </select>
-            </div>
-            <div>
-              <label class="block text-white font-semibold mb-2">Rated Power (kW)</label>
-              <input type="number" id="brk_P" class="input-field w-full p-3 rounded-lg bg-white/90 border-0" value="75" step="0.1" />
-            </div>
-            <div>
-              <label class="block text-white font-semibold mb-2">Voltage (V)</label>
-              <input type="number" id="brk_V" class="input-field w-full p-3 rounded-lg bg-white/90 border-0" value="400" />
-            </div>
-            <div>
-              <label class="block text-white font-semibold mb-2">Power Factor</label>
-              <input type="number" id="brk_pf" class="input-field w-full p-3 rounded-lg bg-white/90 border-0" value="0.85" min="0.1" max="1" step="0.01" />
-            </div>
-            <div>
-              <label class="block text-white font-semibold mb-2">Efficiency η</label>
-              <input type="number" id="brk_eta" class="input-field w-full p-3 rounded-lg bg-white/90 border-0" value="0.92" step="0.01" />
-            </div>
-            <div>
-              <label class="block text-white font-semibold mb-2">Start Multiple (×In) <span class="text-xs text-white/70">motors</span></label>
-              <input type="number" id="brk_start" class="input-field w-full p-3 rounded-lg bg-white/90 border-0" value="6" step="0.5" />
-            </div>
+            <div><label class="block text-white font-semibold mb-2">Load Type</label><select id="brk_load" class="input-field w-full p-3 rounded-lg bg-white/90 border-0"><option value="motor" selected>Motor</option><option value="resistive">Resistive</option><option value="mixed">Mixed</option></select></div>
+            <div><label class="block text-white font-semibold mb-2">Rated Power (kW)</label><input type="number" id="brk_P" class="input-field w-full p-3 rounded-lg bg-white/90 border-0" value="75" step="0.1" /></div>
+            <div><label class="block text-white font-semibold mb-2">Voltage (V)</label><input type="number" id="brk_V" class="input-field w-full p-3 rounded-lg bg-white/90 border-0" value="400" /></div>
+            <div><label class="block text-white font-semibold mb-2">Power Factor</label><input type="number" id="brk_pf" class="input-field w-full p-3 rounded-lg bg-white/90 border-0" value="0.85" min="0.1" max="1" step="0.01" /></div>
+            <div><label class="block text-white font-semibold mb-2">Efficiency η</label><input type="number" id="brk_eta" class="input-field w-full p-3 rounded-lg bg-white/90 border-0" value="0.92" step="0.01" /></div>
+            <div><label class="block text-white font-semibold mb-2">Start Multiple (×In) <span class="text-xs text-white/70">motors</span></label><input type="number" id="brk_start" class="input-field w-full p-3 rounded-lg bg-white/90 border-0" value="6" step="0.5" /></div>
           </div>
           <button class="calc-button w-full py-4 px-6 rounded-xl text-white font-bold text-lg mt-2" onclick="calcBRK()"><i class="fas fa-calculator mr-2"></i>Calculate</button>
           <button class="w-full py-3 px-6 rounded-xl text-white font-semibold bg-gray-600 hover:bg-gray-700 mt-2" onclick="resetBRK()"><i class="fas fa-redo mr-2"></i>Reset</button>
@@ -333,6 +270,21 @@
             <div class="text-white/60 italic">No results yet — enter inputs then click <strong>Calculate</strong>.</div>
           </div>
           <div id="brk_chart_wrap" class="hidden"><canvas id="brkChart" height="160" class="mt-1"></canvas></div>
+
+          <!-- Ad after results, before PDF -->
+          <div class="ad-banner my-6 text-center">
+            <script type="text/javascript">
+              atOptions = {
+                'key' : '52612cca3815c1ad36409099cc68adce',
+                'format' : 'iframe',
+                'height' : 250,
+                'width' : 300,
+                'params' : {}
+              };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/52612cca3815c1ad36409099cc68adce/invoke.js"></script>
+          </div>
+
           <div class="mt-4 flex flex-wrap gap-3">
             <button class="py-2 px-4 rounded-lg bg-indigo-600 hover:bg-indigo-700" onclick="brkReport()"><i class='fa-solid fa-file-pdf mr-2'></i>PDF Report</button>
           </div>
@@ -342,30 +294,33 @@
 
   </main>
 
-  <!-- Single global ad placement: centered, non-intrusive -->
-  <section class="max-w-6xl mx-auto px-4 pb-8">
-    <div class="ad-banner glass-effect rounded-2xl p-4 text-center">
-      <!-- Adsterra 300x250 -->
-      <script type="text/javascript">
-        atOptions = {
-          'key' : '52612cca3815c1ad36409099cc68adce',
-          'format' : 'iframe',
-          'height' : 250,
-          'width' : 300,
-          'params' : {}
-        };
-      </script>
-      <script type="text/javascript" src="//www.highperformanceformat.com/52612cca3815c1ad36409099cc68adce/invoke.js"></script>
-      <p class="text-white/60 text-xs mt-2">Sponsored</p>
+  <!-- Sticky mobile-only 320x100 banner (appears on small screens) -->
+  <div id="mobile-sticky" class="fixed bottom-0 inset-x-0 md:hidden z-40 p-2">
+    <div class="card mx-auto w-full max-w-md rounded-xl relative">
+      <button class="close-btn absolute -top-2 -right-2 w-8 h-8 rounded-full text-white" onclick="document.getElementById('mobile-sticky').classList.add('hidden')" aria-label="Close ad">
+        ✕
+      </button>
+      <div class="ad-banner p-3 text-center">
+        <script type="text/javascript">
+          atOptions = {
+            'key' : '52612cca3815c1ad36409099cc68adce',
+            'format' : 'iframe',
+            'height' : 100,
+            'width' : 320,
+            'params' : {}
+          };
+        </script>
+        <script type="text/javascript" src="//www.highperformanceformat.com/52612cca3815c1ad36409099cc68adce/invoke.js"></script>
+      </div>
     </div>
-  </section>
+  </div>
 
   <footer class="max-w-6xl mx-auto px-4 pb-10 text-center text-white/70 text-sm">
     <p>Based on engineering approximations. Always verify with manufacturer / standards for final design.</p>
   </footer>
 
   <script>
-    console.log('Electrical Calculator Suite loaded OK');
+    console.log('Electrical Calculator Suite with ads loaded');
 
     // ---- Tab switching ----
     const tabs = { pf: document.getElementById('tab-pf'), vd: document.getElementById('tab-vd'), cs: document.getElementById('tab-cs'), mccb: document.getElementById('tab-mccb') };
@@ -378,7 +333,7 @@
       });
     });
 
-    // ========= Helper: Export chart with black text on white background =========
+    // Helper: export charts with dark-on-white for PDF
     function exportChartImage(chartInst) {
       if (!chartInst) return null;
       const prev = {
@@ -417,27 +372,27 @@
       return dataURL;
     }
 
-    // ========= POWER FACTOR =========
+    // === Power Factor ===
     let pfChart1, pfChart2; let pfState = null;
     function tanphi(pf){ pf = Math.min(Math.max(pf,0.01), 0.9999); return Math.sqrt(1-pf*pf)/pf; }
     function pfCostPerKvar(kV){ if (kV <= 0.48) return 12; if (kV <= 11) return 20; return 35; }
 
     function calcPF(){
-      const P = +document.getElementById('pf_P').value; // kW
+      const P = +document.getElementById('pf_P').value;
       const pf1 = +document.getElementById('pf_pf1').value;
       const pf2 = +document.getElementById('pf_pf2').value;
       const kV = +document.getElementById('pf_voltage').value;
       const demand = +document.getElementById('pf_demand').value || 0;
-      const energy = +document.getElementById('pf_energy').value || 0; // optional
+      const energy = +document.getElementById('pf_energy').value || 0;
       const hours = +document.getElementById('pf_hours').value || 0;
       const derate = +document.getElementById('pf_derate').value;
 
-      const Qc = P * (tanphi(pf1) - tanphi(pf2)) * derate; // kVAr
+      const Qc = P * (tanphi(pf1) - tanphi(pf2)) * derate;
       const kvarRounded = Math.max(0, Math.round(Qc));
 
-      const S1 = P/pf1, S2 = P/pf2; // kVA
-      const demandReduction = Math.max(0, S1 - S2); // kVA
-      const monthlySavings = demandReduction * demand; // USD/month
+      const S1 = P/pf1, S2 = P/pf2;
+      const demandReduction = Math.max(0, S1 - S2);
+      const monthlySavings = demandReduction * demand;
 
       let energySavings = 0;
       if (energy > 0 && hours > 0){
@@ -460,7 +415,6 @@
         <div>Annual Savings: <strong>$${annualSavings.toFixed(0)}</strong> | Payback: <strong>${isFinite(paybackMonths)?paybackMonths.toFixed(1):'—'} months</strong> | ROI≈ <strong>${roiPct.toFixed(0)}%</strong></div>
       `;
 
-      // show charts area
       document.getElementById('pf_charts_wrap').classList.remove('hidden');
 
       const ctx1 = document.getElementById('pfChart1');
@@ -477,7 +431,6 @@
       document.querySelectorAll('#tab-pf input').forEach(i=>{ 
         if(i.type==='number') i.value=i.id==='pf_pf1'?0.80:i.id==='pf_pf2'?0.95:i.id==='pf_voltage'?0.4:i.id==='pf_hours'?8760:i.id==='pf_energy'?0.03:i.value;
       }); 
-      // destroy charts + hide section + reset text
       if(pfChart1 && typeof pfChart1.destroy === 'function') pfChart1.destroy(); 
       if(pfChart2 && typeof pfChart2.destroy === 'function') pfChart2.destroy(); 
       document.getElementById('pf_out').innerHTML = `<div class="text-white/60 italic">No results yet — enter inputs then click <strong>Calculate</strong>.</div>`;
@@ -514,7 +467,7 @@
       doc.save('pf_report.pdf'); 
     }
 
-    // ========= VOLTAGE DROP =========
+    // === Voltage Drop ===
     let vdChart; let lastVD = null;
     function resistivity(material){ return material==='al' ? 0.028264 : 0.017241; }
 
@@ -583,7 +536,7 @@
       doc.save('voltage_drop_report.pdf'); 
     }
 
-    // ========= CABLE SIZING =========
+    // === Cable Sizing ===
     function currentFrom(P, V, pf, ph){ return ph===3 ? (P*1000)/(Math.sqrt(3)*V*pf) : (P*1000)/(V*pf); }
     const AMPACITY = { cu: { PVC: { 1: [10,16,25,35,50,70,95,120,150,185,240], 3: [10,16,25,35,50,70,95,120,150,185,240] }, XLPE:{ 1: [10,16,25,35,50,70,95,120,150,185,240], 3: [10,16,25,35,50,70,95,120,150,185,240] } }, al: { PVC: { 1: [16,25,35,50,70,95,120,150,185,240,300], 3: [16,25,35,50,70,95,120,150,185,240,300] }, XLPE:{ 1: [16,25,35,50,70,95,120,150,185,240,300], 3: [16,25,35,50,70,95,120,150,185,240,300] } } };
     const NOMINAL_A = { cu:{ 10:50,16:70,25:95,35:120,50:150,70:195,95:235,120:265,150:300,185:340,240:395,300:455,400:520 }, al:{ 16:50,25:65,35:80,50:100,70:125,95:155,120:180,150:205,185:235,240:275,300:315,400:360 } };
@@ -591,6 +544,7 @@
     function tempFactorXLPE(Ta){ if(Ta<=30) return 1; if(Ta<=35) return 0.97; if(Ta<=40) return 0.94; if(Ta<=45) return 0.90; if(Ta<=50) return 0.87; return 0.82; }
     function groupingFactor(n){ if(n<=1) return 1; if(n==2) return 0.8; if(n==3) return 0.7; if(n==4) return 0.65; if(n==5) return 0.6; return 0.57; }
 
+    let csChartInst; let lastCS;
     function calcCS(){
       const ph = +document.getElementById('cs_phase').value;
       const V = +document.getElementById('cs_V').value;
@@ -618,10 +572,10 @@
         <div class="text-white/70 text-xs">Reference values are indicative. Check manufacturer tables for exact installation method.</div>
       `;
       const ctx = document.getElementById('csChart');
-      if (window.csChartInst && typeof window.csChartInst.destroy === 'function') window.csChartInst.destroy();
+      if (csChartInst && typeof csChartInst.destroy === 'function') csChartInst.destroy();
       const reqA = req; const chosenA = NOMINAL_A[mat][chosen]||req;
-      window.csChartInst = new Chart(ctx, { type:'bar', data:{ labels:['Required','Selected'], datasets:[{ label:'Ampacity (A)', data:[reqA, chosenA] }] }, options:{ plugins:{legend:{labels:{color:'#fff'}}}, scales:{x:{ticks:{color:'#fff'}}, y:{ticks:{color:'#fff'}}} } });
-      window.lastCS = {ph,V,P,pf,Ta,g,ins,mat,I,tF,gF,req,chosen,chosenA};
+      csChartInst = new Chart(ctx, { type:'bar', data:{ labels:['Required','Selected'], datasets:[{ label:'Ampacity (A)', data:[reqA, chosenA] }] }, options:{ plugins:{legend:{labels:{color:'#fff'}}}, scales:{x:{ticks:{color:'#fff'}}, y:{ticks:{color:'#fff'}}} } });
+      lastCS = {ph,V,P,pf,Ta,g,ins,mat,I,tF,gF,req,chosen,chosenA};
 
       document.getElementById('cs_chart_wrap').classList.remove('hidden');
     }
@@ -629,28 +583,29 @@
       document.querySelectorAll('#tab-cs input').forEach(i=>i.value=''); 
       document.getElementById('cs_V').value=400; document.getElementById('cs_P').value=75; document.getElementById('cs_pf').value=0.85; document.getElementById('cs_Ta').value=40; document.getElementById('cs_group').value=3; 
       document.getElementById('cs_out').innerHTML = `<div class="text-white/60 italic">No results yet — enter inputs then click <strong>Calculate</strong>.</div>`; 
-      if (window.csChartInst && typeof window.csChartInst.destroy === 'function') window.csChartInst.destroy(); 
+      if (csChartInst && typeof csChartInst.destroy === 'function') csChartInst.destroy(); 
       document.getElementById('cs_chart_wrap').classList.add('hidden');
     }
 
     function csReport(){ 
-      if(!window.lastCS){ alert('Calculate first'); return; } 
+      if(!lastCS){ alert('Calculate first'); return; } 
       const { jsPDF } = window.jspdf; 
       const doc = new jsPDF('p','pt','a4'); const pageW = doc.internal.pageSize.getWidth(); let y=60; 
       doc.setFontSize(18); doc.text('Cable Sizing Report', 40, y); y+=22; 
       doc.setFontSize(11); 
-      const t = window.lastCS; 
+      const t = lastCS; 
       const lines=[`System: ${t.ph===3?'3-Phase':'1-Phase'} · Voltage: ${t.V} V`,`Power: ${t.P} kW · PF: ${t.pf}`,`Ambient: ${t.Ta} °C · Grouping: ${t.g}`,`Insulation: ${t.ins} · Material: ${t.mat.toUpperCase()}`,`Calculated Current: ${t.I.toFixed(1)} A`,`Derating: temp ${t.tF} × grouping ${t.gF}`,`Required ampacity: ${t.req.toFixed(1)} A`,`Selected: ${t.chosen} mm² (${t.chosenA} A nominal)`]; 
       lines.forEach(s=>{ doc.text(s,40,y); y+=16; }); 
       try{ 
-        if (window.csChartInst){ const img = exportChartImage(window.csChartInst); if(img){ doc.addImage(img,'PNG',40,y+10,pageW-80,200); y+=220; } } 
+        if (csChartInst){ const img = exportChartImage(csChartInst); if(img){ doc.addImage(img,'PNG',40,y+10,pageW-80,200); y+=220; } } 
       }catch(e){} 
       doc.setFontSize(9); doc.text('Generated with Electrical Suite – Yasser Zakaria', 40, doc.internal.pageSize.getHeight()-30); 
       doc.save('cable_sizing_report.pdf'); 
     }
 
-    // ========= BREAKER SELECTOR =========
+    // === Breaker ===
     function roundTo(list, val){ for(const x of list){ if(x>=val) return x; } return list[list.length-1]; }
+    let brkChartInst; let lastBRK;
     function calcBRK(){
       const type = document.getElementById('brk_load').value;
       const P = +document.getElementById('brk_P').value;
@@ -674,9 +629,9 @@
         <div class="text-white/70 text-xs">Always verify Ik (short-circuit) and coordination with upstream/downstream devices.</div>
       `;
       const ctx = document.getElementById('brkChart');
-      if (window.brkChartInst && typeof window.brkChartInst.destroy === 'function') window.brkChartInst.destroy();
-      window.brkChartInst = new Chart(ctx, { type:'bar', data:{ labels:['FLA','In required','In selected'], datasets:[{ label:'Amps', data:[I, In_req, In] }] }, options:{ plugins:{legend:{labels:{color:'#fff'}}}, scales:{x:{ticks:{color:'#fff'}}, y:{ticks:{color:'#fff'}}} } });
-      window.lastBRK = {type,P,V,pf,eta,k,I,In_req,In,curve};
+      if (brkChartInst && typeof brkChartInst.destroy === 'function') brkChartInst.destroy();
+      brkChartInst = new Chart(ctx, { type:'bar', data:{ labels:['FLA','In required','In selected'], datasets:[{ label:'Amps', data:[I, In_req, In] }] }, options:{ plugins:{legend:{labels:{color:'#fff'}}}, scales:{x:{ticks:{color:'#fff'}}, y:{ticks:{color:'#fff'}}} } });
+      lastBRK = {type,P,V,pf,eta,k,I,In_req,In,curve};
 
       document.getElementById('brk_chart_wrap').classList.remove('hidden');
     }
@@ -684,21 +639,21 @@
       document.querySelectorAll('#tab-mccb input').forEach(i=>i.value=''); 
       document.getElementById('brk_P').value=75; document.getElementById('brk_V').value=400; document.getElementById('brk_pf').value=0.85; document.getElementById('brk_eta').value=0.92; document.getElementById('brk_start').value=6; 
       document.getElementById('brk_out').innerHTML = `<div class="text-white/60 italic">No results yet — enter inputs then click <strong>Calculate</strong>.</div>`; 
-      if (window.brkChartInst && typeof window.brkChartInst.destroy === 'function') window.brkChartInst.destroy(); 
+      if (brkChartInst && typeof brkChartInst.destroy === 'function') brkChartInst.destroy(); 
       document.getElementById('brk_chart_wrap').classList.add('hidden');
     }
 
     function brkReport(){ 
-      if(!window.lastBRK){ alert('Calculate first'); return; } 
+      if(!lastBRK){ alert('Calculate first'); return; } 
       const { jsPDF } = window.jspdf; 
       const doc = new jsPDF('p','pt','a4'); const pageW = doc.internal.pageSize.getWidth(); let y=60; 
       doc.setFontSize(18); doc.text('Breaker Selection Report', 40, y); y+=22; 
       doc.setFontSize(11); 
-      const t = window.lastBRK; 
+      const t = lastBRK; 
       const lines=[`Load type: ${t.type}`,`Power: ${t.P} kW · Voltage: ${t.V} V · PF: ${t.pf} · η: ${t.eta}`,`Start multiple: ${t.k}×In`,`FLA: ${t.I.toFixed(1)} A`,`Required In: ${t.In_req.toFixed(1)} A`,`Selected In: ${t.In} A · Curve: ${t.curve}`]; 
       lines.forEach(s=>{ doc.text(s,40,y); y+=16; }); 
       try{ 
-        if (window.brkChartInst){ const img = exportChartImage(window.brkChartInst); if(img){ doc.addImage(img,'PNG',40,y+10,pageW-80,200); y+=220; } } 
+        if (brkChartInst){ const img = exportChartImage(brkChartInst); if(img){ doc.addImage(img,'PNG',40,y+10,pageW-80,200); y+=220; } } 
       }catch(e){} 
       doc.setFontSize(9); doc.text('Generated with Electrical Suite – Yasser Zakaria', 40, doc.internal.pageSize.getHeight()-30); 
       doc.save('breaker_report.pdf'); 
